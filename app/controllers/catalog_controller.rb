@@ -98,9 +98,12 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
     config.add_index_field 'id', label: 'ID'
+    config.add_index_field 'file_name_ssi', label: 'File name'
     config.add_index_field 'type_ssi', label: 'Type'
     config.add_index_field '_childDocuments_', label: 'Engligh tags', helper_method: :get_tags
     config.add_index_field 'text_ssi', label: 'Danish tags', helper_method: :get_tags_dk # A trick to have two fields with tags - TO BE REMOVED
+    config.index.thumbnail_method =  :show_scaled_image
+
 
     # config.add_index_field 'author_display', label: 'Author'
     # config.add_index_field 'author_vern_display', label: 'Author'
@@ -113,6 +116,12 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
     config.add_show_field 'type_ssi', label: 'Type'
+    config.add_show_field 'full_matching_images_ssim', label: 'Full matching images on web'
+    config.add_show_field 'full_matching_images_dk_ssim', label: 'Full matching images on web in .dk domains'
+    config.add_show_field 'partial_matching_images_ssim', label: 'Partial matching images on web'
+    config.add_show_field 'partial_matching_images_dk_ssim', label: 'Partial matching images on web'
+    config.add_show_field 'pages_with_matching_images_ssim', label: 'Partial matching images on web'
+    config.add_show_field 'pages_with_matching_images_dk_ssim', label: 'Pages with matching images on web in .dk domains'
     # config.add_show_field 'title_vern_display', label: 'Title'
     # config.add_show_field 'subtitle_display', label: 'Subtitle'
     # config.add_show_field 'subtitle_vern_display', label: 'Subtitle'

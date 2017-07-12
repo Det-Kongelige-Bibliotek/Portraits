@@ -26,4 +26,13 @@ module ApplicationHelper
     return tags_dk.to_sentence
   end
 
+  def show_array doc
+    return doc[:document]['partial_matching_images_ssim'].to_sentence
+  end
+    def show_scaled_image(doc, opts)
+      uri = "http://udvikling-03.kb.dk/images/"+doc['file_name_ssi']
+      return img_tag = image_tag(URI(uri))
+
+
+    end
 end
