@@ -104,7 +104,6 @@ class CatalogController < ApplicationController
     config.add_index_field 'text_ssi', label: 'Danish tags', helper_method: :get_tags_dk # A trick to have two fields with tags - TO BE REMOVED
     config.index.thumbnail_method =  :show_scaled_image
 
-
     # config.add_index_field 'author_display', label: 'Author'
     # config.add_index_field 'author_vern_display', label: 'Author'
     # config.add_index_field 'format', label: 'Format'
@@ -116,6 +115,7 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
     config.add_show_field 'type_ssi', label: 'Type'
+    config.add_show_field 'text_ssi', label: 'Text'
     config.add_show_field 'full_matching_images_ssim', label: 'Full matching images on web'
     config.add_show_field 'full_matching_images_dk_ssim', label: 'Full matching images on web in .dk domains'
     config.add_show_field 'partial_matching_images_ssim', label: 'Partial matching images on web'

@@ -31,8 +31,6 @@ module ApplicationHelper
   end
     def show_scaled_image(doc, opts)
       uri = "http://udvikling-03.kb.dk/images/"+doc['file_name_ssi']
-      return img_tag = image_tag(URI(uri))
-
-
+      return image_tag(URI(uri))
     end
 end
