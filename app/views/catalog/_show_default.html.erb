@@ -1,0 +1,38 @@
+<% require "csv"%>
+<table class="table">
+  <tbody>
+<% doc_presenter = show_presenter(document) %>
+<%# default partial to display solr document fields in catalog show view -%>
+
+    <% document_show_fields(document).each do |field_name, field| -%>
+      <% if should_render_show_field? document, field %>
+  <tr>
+          <% puts field_name %>
+
+          <% puts doc_presenter.field_value field_name %>
+          <% if (field_name=="type_ssi")or(field_name=="text_ssi") %>
+              <td class="blacklight-<%= field_name.parameterize %>"><%= render_document_show_field_label document, field: field_name %></td>
+              <td class="blacklight-<%= field_name.parameterize %>">
+                <input type="Text" value="<%= doc_presenter.field_value field_name %>"/></td>
+  </tr>
+          <% end %>
+          <% if (field_name=="full_matching_images_ssim")or(field_name=="full_matching_images_dk_ssim")or(field_name=="partial_matching_images_ssim")or(field_name=="partial_matching_images_dk_ssim")or(field_name=="pages_with_matching_images_ssim")or(field_name=="pages_with_matching_images_dk_ssim") %>
+              <tr>
+              <td class="blacklight-<%= field_name.parameterize %>"><%= render_document_show_field_label document, field: field_name %></td>
+              <td class="blacklight-<%= field_name.parameterize %>">
+                <% puts doc_presenter.field_value field_name%>
+                <% urls = (doc_presenter.field_value field_name).split(/[,]/)%>
+                <% urls.each { |url| %>
+
+                <textarea cols="80" rows="1"><%= url %></textarea>
+                   <% }%>
+              </td></tr>
+
+
+          <% end %>
+      <% end -%>
+  <% end -%>
+
+  </tbody>
+
+</table>

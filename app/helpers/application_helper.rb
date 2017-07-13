@@ -10,7 +10,7 @@ module ApplicationHelper
         tags << child['entity_ssi']
       end
     end
-    return tags.to_sentence
+    return tags.to_sentence(last_word_connector: ', ')
   end
 
   def get_tags_dk doc
@@ -23,14 +23,11 @@ module ApplicationHelper
         tags_dk << child['entity_dk_ssi']
       end
     end
-    return tags_dk.to_sentence
+    return tags_dk.to_sentence(last_word_connector: ', ')
   end
 
-  def show_array doc
-    return doc[:document]['partial_matching_images_ssim'].to_sentence
+  def show_scaled_image(doc, opts)
+    uri = "http://udvikling-03.kb.dk/images/"+doc['file_name_ssi']
+    return image_tag(URI(uri))
   end
-    def show_scaled_image(doc, opts)
-      uri = "http://udvikling-03.kb.dk/images/"+doc['file_name_ssi']
-      return image_tag(URI(uri))
-    end
 end

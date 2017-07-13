@@ -31,13 +31,14 @@ class CatalogController < ApplicationController
     ## Default parameters to send on single-document requests to Solr. These settings are the Blackligt defaults (see SearchHelper#solr_doc_params) or
     ## parameters included in the Blacklight-jetty document requestHandler.
     #
-    #config.default_document_solr_params = {
-    #  qt: 'document',
-    #  ## These are hard-coded in the blacklight 'document' requestHandler
-    #  # fl: '*',
-    #  # rows: 1,
-    #  # q: '{!term f=id v=$id}'
-    #}
+    config.default_document_solr_params = {
+     qt: 'document',
+     fl: ['*,[child parentFilter=type_ssi:image_info]']
+     ## These are hard-coded in the blacklight 'document' requestHandler
+     # fl: '*',
+     # rows: 1,
+     # q: '{!term f=id v=$id}'
+    }
 
     # solr field configuration for search results/index views
     config.index.title_field = 'title_display'
@@ -47,7 +48,7 @@ class CatalogController < ApplicationController
     # solr field configuration for document/show views
     #config.show.title_field = 'title_display'
     #config.show.display_type_field = 'format'
-    #config.show.thumbnail_field = 'thumbnail_path_ss'
+    config.show.thumbnail_field = 'file_name_ssi'
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
@@ -101,7 +102,7 @@ class CatalogController < ApplicationController
     config.add_index_field 'file_name_ssi', label: 'File name'
     config.add_index_field 'type_ssi', label: 'Type'
     config.add_index_field '_childDocuments_', label: 'Engligh tags', helper_method: :get_tags
-    config.add_index_field 'text_ssi', label: 'Danish tags', helper_method: :get_tags_dk # A trick to have two fields with tags - TO BE REMOVED
+    config.add_index_field 'text_ssi', label: 'Danish tags', helper_method: :get_tags_dk # TODO: A trick to have two fields with tags - TO BE REMOVED
     config.index.thumbnail_method =  :show_scaled_image
 
     # config.add_index_field 'author_display', label: 'Author'
@@ -114,14 +115,17 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
-    config.add_show_field 'type_ssi', label: 'Type'
+    #config.add_show_field 'type_ssi', label: 'Type'
     config.add_show_field 'text_ssi', label: 'Text'
-    config.add_show_field 'full_matching_images_ssim', label: 'Full matching images on web'
+    # config.add_show_field '_childDocuments_', label: 'Engligh tags'
+    config.add_show_field 'type_ssi', label: 'Danish tags', helper_method: :get_tags_dk # TODO: A trick to have two fields with tags - TO BE REMOVED
+
+    config.add_show_field 'full_matching_images_ssim', label: 'Full matching images on web', helper_method: :show_array
     config.add_show_field 'full_matching_images_dk_ssim', label: 'Full matching images on web in .dk domains'
-    config.add_show_field 'partial_matching_images_ssim', label: 'Partial matching images on web'
-    config.add_show_field 'partial_matching_images_dk_ssim', label: 'Partial matching images on web'
-    config.add_show_field 'pages_with_matching_images_ssim', label: 'Partial matching images on web'
-    config.add_show_field 'pages_with_matching_images_dk_ssim', label: 'Pages with matching images on web in .dk domains'
+    config.add_show_field 'partial_matching_images_ssim', label: 'Partial matching images on web',  separator_options: { last_word_connector: ', ' }
+    config.add_show_field 'partial_matching_images_dk_ssim', label: 'Partial matching images on web',  separator_options: { last_word_connector: ', ' }
+    config.add_show_field 'pages_with_matching_images_ssim', label: 'Partial matching images on web',  separator_options: { last_word_connector: ', ' }
+    config.add_show_field 'pages_with_matching_images_dk_ssim', label: 'Pages with matching images on web in .dk domains',  separator_options: { last_word_connector: ', ' }
     # config.add_show_field 'title_vern_display', label: 'Title'
     # config.add_show_field 'subtitle_display', label: 'Subtitle'
     # config.add_show_field 'subtitle_vern_display', label: 'Subtitle'
