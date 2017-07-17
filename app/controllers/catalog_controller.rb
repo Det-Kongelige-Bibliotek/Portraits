@@ -48,7 +48,7 @@ class CatalogController < ApplicationController
     # solr field configuration for document/show views
     #config.show.title_field = 'title_display'
     #config.show.display_type_field = 'format'
-    config.show.thumbnail_field = 'file_name_ssi'
+    #config.show.thumbnail_field = 'file_name_ssi'
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
@@ -117,28 +117,16 @@ class CatalogController < ApplicationController
     #   The ordering of the field names is the order of the display
     #config.add_show_field 'type_ssi', label: 'Type'
     config.add_show_field 'text_ssi', label: 'Text'
-    # config.add_show_field '_childDocuments_', label: 'Engligh tags'
+    config.add_show_field '_childDocuments_', label: 'Engligh tags', helper_method: :get_tags
     config.add_show_field 'type_ssi', label: 'Danish tags', helper_method: :get_tags_dk # TODO: A trick to have two fields with tags - TO BE REMOVED
+    config.add_show_field 'file_name_ssi', label: 'File name'
 
-    config.add_show_field 'full_matching_images_ssim', label: 'Full matching images on web', helper_method: :show_array
-    config.add_show_field 'full_matching_images_dk_ssim', label: 'Full matching images on web in .dk domains'
-    config.add_show_field 'partial_matching_images_ssim', label: 'Partial matching images on web',  separator_options: { last_word_connector: ', ' }
-    config.add_show_field 'partial_matching_images_dk_ssim', label: 'Partial matching images on web',  separator_options: { last_word_connector: ', ' }
-    config.add_show_field 'pages_with_matching_images_ssim', label: 'Partial matching images on web',  separator_options: { last_word_connector: ', ' }
-    config.add_show_field 'pages_with_matching_images_dk_ssim', label: 'Pages with matching images on web in .dk domains',  separator_options: { last_word_connector: ', ' }
-    # config.add_show_field 'title_vern_display', label: 'Title'
-    # config.add_show_field 'subtitle_display', label: 'Subtitle'
-    # config.add_show_field 'subtitle_vern_display', label: 'Subtitle'
-    # config.add_show_field 'author_display', label: 'Author'
-    # config.add_show_field 'author_vern_display', label: 'Author'
-    # config.add_show_field 'format', label: 'Format'
-    # config.add_show_field 'url_fulltext_display', label: 'URL'
-    # config.add_show_field 'url_suppl_display', label: 'More Information'
-    # config.add_show_field 'language_facet', label: 'Language'
-    # config.add_show_field 'published_display', label: 'Published'
-    # config.add_show_field 'published_vern_display', label: 'Published'
-    # config.add_show_field 'lc_callnum_display', label: 'Call number'
-    # config.add_show_field 'isbn_t', label: 'ISBN'
+    config.add_show_field 'full_matching_images_ssim', label: 'Full matching images on the web',  separator_options: { last_word_connector: ', ' }
+    config.add_show_field 'full_matching_images_dk_ssim', label: 'Full matching images on the web in .dk domains',  separator_options: { last_word_connector: ', ' }
+    config.add_show_field 'partial_matching_images_ssim', label: 'Partial matching images on the web',  separator_options: { last_word_connector: ', ' }
+    config.add_show_field 'partial_matching_images_dk_ssim', label: 'Partial matching images on the web in .dk domains',  separator_options: { last_word_connector: ', ' }
+    config.add_show_field 'pages_with_matching_images_ssim', label: 'Pages with matching images on the web',  separator_options: { last_word_connector: ', ' }
+    config.add_show_field 'pages_with_matching_images_dk_ssim', label: 'Pages with matching images on the web in .dk domains',  separator_options: { last_word_connector: ', ' }
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
