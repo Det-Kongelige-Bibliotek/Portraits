@@ -1,0 +1,23 @@
+#content {
+  input {
+    width: 510px;
+  }
+  td.my_label{
+    text-align: right;
+    width: 30%;
+  }
+  .tags{
+    line-height: 2.5;
+    display: inline-block;
+  }
+
+  div.tags{
+    border-radius: 25px;
+    border: 1px solid #ddd;
+    padding: 3px;
+    margin: 3px;
+  }
+img.landing_page_image{
+  width: 100%;
+}
+}
