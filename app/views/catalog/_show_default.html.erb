@@ -1,38 +1,43 @@
-<% require "csv"%>
-<table class="table">
-  <tbody>
+<% require "csv" %>
 <% doc_presenter = show_presenter(document) %>
 <%# default partial to display solr document fields in catalog show view -%>
-
+<div class="col-sm-12 col-md-6">
+  <img class="landing_page_image" src="http://udvikling-03.kb.dk/images/<%= doc_presenter.field_value 'file_name_ssi' %>">
+</div>
+<div class="col-sm-12 col-md-6">
+  <table class="table">
+    <tbody>
     <% document_show_fields(document).each do |field_name, field| -%>
-      <% if should_render_show_field? document, field %>
-  <tr>
-          <% puts field_name %>
-
-          <% puts doc_presenter.field_value field_name %>
-          <% if (field_name=="type_ssi")or(field_name=="text_ssi") %>
-              <td class="blacklight-<%= field_name.parameterize %>"><%= render_document_show_field_label document, field: field_name %></td>
-              <td class="blacklight-<%= field_name.parameterize %>">
-                <input type="Text" value="<%= doc_presenter.field_value field_name %>"/></td>
-  </tr>
-          <% end %>
-          <% if (field_name=="full_matching_images_ssim")or(field_name=="full_matching_images_dk_ssim")or(field_name=="partial_matching_images_ssim")or(field_name=="partial_matching_images_dk_ssim")or(field_name=="pages_with_matching_images_ssim")or(field_name=="pages_with_matching_images_dk_ssim") %>
-              <tr>
-              <td class="blacklight-<%= field_name.parameterize %>"><%= render_document_show_field_label document, field: field_name %></td>
-              <td class="blacklight-<%= field_name.parameterize %>">
-                <% puts doc_presenter.field_value field_name%>
-                <% urls = (doc_presenter.field_value field_name).split(/[,]/)%>
-                <% urls.each { |url| %>
-
-                <textarea cols="80" rows="1"><%= url %></textarea>
-                   <% }%>
-              </td></tr>
-
-
-          <% end %>
-      <% end -%>
-  <% end -%>
-
-  </tbody>
-
-</table>
+        <% if should_render_show_field? document, field %>
+            <tr>
+              <% if (field_name=="type_ssi")or(field_name=="_childDocuments_") %>
+                  <td class="my_label" class="blacklight-<%= field_name.parameterize %>"><%= render_document_show_field_label document, field: field_name %></td>
+                  <td class="tags" class="blacklight-<%= field_name.parameterize %>">
+                    <% tags = (doc_presenter.field_value field_name).split(/[,]/) %>
+                    <% tags.each { |tag| %>
+                        <div class="tags" contenteditable="true"><%= tag %> </div><a href="#" title="Confirm"><i class="fa fa-check" aria-hidden="true"></i></a><a href="#" title="Remove"><i class="fa fa-times" aria-hidden="true"></i></a>
+                    <% } %>
+                  </td>
+              <% end %>
+              <% if (field_name=="text_ssi") %>
+                  <td class="my_label" class="blacklight-<%= field_name.parameterize %>"><%= render_document_show_field_label document, field: field_name %></td>
+                  <td class="blacklight-<%= field_name.parameterize %>">
+                    <div class="TextArea" contenteditable="true"><%= doc_presenter.field_value field_name %></div><a href="#" title="Confirm"><i class="fa fa-check" aria-hidden="true"></i></a><a href="#" title="Remove"><i class="fa fa-times" aria-hidden="true"></i></a></td>
+              <% end %>
+              <% if (field_name=="full_matching_images_ssim")or(field_name=="full_matching_images_dk_ssim")or(field_name=="partial_matching_images_ssim")or(field_name=="partial_matching_images_dk_ssim")or(field_name=="pages_with_matching_images_ssim")or(field_name=="pages_with_matching_images_dk_ssim") %>
+                  <tr>
+                    <td class="my_label" class="blacklight-<%= field_name.parameterize %>"><%= render_document_show_field_label document, field: field_name %></td>
+                    <td class="blacklight-<%= field_name.parameterize %>">
+                      <% puts doc_presenter.field_value field_name %>
+                      <% urls = (doc_presenter.field_value field_name).split(/[,]/) %>
+                      <% urls.each { |url| %>
+                          <div class="TextArea"><a target="_blank" href="<%= url %>"><%= url %></a></div><a href="#" title="Confirm"><i class="fa fa-check" aria-hidden="true"></i></a><a href="#" title="Remove"><i class="fa fa-times" aria-hidden="true"></i></a>
+                      <% } %>
+                    </td>
+                  </tr>
+              <% end %>
+        <% end -%>
+    <% end -%>
+    </tbody>
+  </table>
+</div>

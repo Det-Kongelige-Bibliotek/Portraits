@@ -20,4 +20,26 @@
 img.landing_page_image{
   width: 100%;
 }
+    a .fa-times {
+      &:hover {
+        color: #C00;
+      }
+    }
+   a .fa-check{
+     &:hover {
+       color: #0c0;
+     }
+   }
+
+  .TextArea
+  {
+    width: 500px;
+    height: 50px;
+    background-color: white;
+    color: black;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    padding: 3px;
+    margin: 3px;
+  }
 }
