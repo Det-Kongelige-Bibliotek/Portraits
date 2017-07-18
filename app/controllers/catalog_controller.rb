@@ -121,12 +121,12 @@ class CatalogController < ApplicationController
     config.add_show_field 'type_ssi', label: 'Danish tags', helper_method: :get_tags_dk # TODO: A trick to have two fields with tags - TO BE REMOVED
     config.add_show_field 'file_name_ssi', label: 'File name'
 
-    config.add_show_field 'full_matching_images_ssim', label: 'Full matching images on the web',  separator_options: { last_word_connector: ', ' }
-    config.add_show_field 'full_matching_images_dk_ssim', label: 'Full matching images on the web in .dk domains',  separator_options: { last_word_connector: ', ' }
-    config.add_show_field 'partial_matching_images_ssim', label: 'Partial matching images on the web',  separator_options: { last_word_connector: ', ' }
-    config.add_show_field 'partial_matching_images_dk_ssim', label: 'Partial matching images on the web in .dk domains',  separator_options: { last_word_connector: ', ' }
-    config.add_show_field 'pages_with_matching_images_ssim', label: 'Pages with matching images on the web',  separator_options: { last_word_connector: ', ' }
-    config.add_show_field 'pages_with_matching_images_dk_ssim', label: 'Pages with matching images on the web in .dk domains',  separator_options: { last_word_connector: ', ' }
+    config.add_show_field 'full_matching_images_ssim', label: 'Full matching images on the web',  separator_options: { last_word_connector: ', ' , two_words_connector: ', '}
+    config.add_show_field 'full_matching_images_dk_ssim', label: 'Full matching images on the web in .dk domains',  separator_options: { last_word_connector: ', ' , two_words_connector: ', '}
+    config.add_show_field 'partial_matching_images_ssim', label: 'Partial matching images on the web',  separator_options: { last_word_connector: ', ' , two_words_connector: ', '}
+    config.add_show_field 'partial_matching_images_dk_ssim', label: 'Partial matching images on the web in .dk domains',  separator_options: { last_word_connector: ', ' , two_words_connector: ', '}
+    config.add_show_field 'pages_with_matching_images_ssim', label: 'Pages with matching images on the web',  separator_options: { last_word_connector: ', ' , two_words_connector: ', '}
+    config.add_show_field 'pages_with_matching_images_dk_ssim', label: 'Pages with matching images on the web in .dk domains',  separator_options: { last_word_connector: ', ', two_words_connector: ', ' }
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
